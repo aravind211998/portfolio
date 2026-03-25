@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aravind Bandameedi – IT Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --bg2: #0f1521;
+    --accent: #00f0ff;
+    --accent2: #7b2fff;
+    --text: #e0eaff;
+    --muted: #5a6a8a;
+    --card: #111827;
+    --border: rgba(0,240,255,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,14,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content { max-width: 700px; }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2px;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0,240,255,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-outline:hover {
+    background: rgba(0,240,255,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* GLOW ORBS */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .orb1 {
+    width: 400px; height: 400px;
+    background: rgba(0,240,255,0.08);
+    top: 10%; right: 5%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .orb2 {
+    width: 300px; height: 300px;
+    background: rgba(123,47,255,0.1);
+    bottom: 10%; right: 20%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 3rem;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(0,240,255,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,240,255,0.1);
+  }
+
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+
+  .skill-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .skill-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-card:hover {
+    border-color: rgba(0,240,255,0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,240,255,0.1);
+  }
+
+  .project-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 2px;
+  }
+
+  .project-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .project-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .project-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.3s;
+  }
+
+  .project-link:hover { gap: 0.8rem; }
+
+  .coming-soon {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px dashed var(--muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
+  }
+
+  /* CONTACT */
+  .contact-box {
+    max-width: 600px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3rem;
+  }
+
+  .contact-box p {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s;
+    font-size: 0.9rem;
+  }
+
+  .contact-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateX(5px);
+  }
+
+  .contact-icon { font-size: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 4rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-30px); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    .hero, section { padding: 6rem 1.5rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">AB://</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-content">
+    <div class="tag">// IT SUPPORT SPECIALIST</div>
+    <h1>Hi, I'm <span>Aravind<br/>Bandameedi</span></h1>
+    <p>Aspiring IT Support professional passionate about solving technical problems, helping users, and building a career in Information Technology.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 01. about</div>
+  <div class="section-title">Who Am I?</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm Aravind Bandameedi, an aspiring IT Support Specialist focused on building strong technical skills to help businesses and users solve their technology challenges.</p>
+      <p>I'm currently learning the fundamentals of IT support, networking, troubleshooting, and version control with Git & GitHub — building real projects to showcase my growth.</p>
+      <p>My goal is to land a role in IT Support where I can make a real impact by keeping systems running smoothly and users happy.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <span class="stat-num">IT</span>
+        <div class="stat-label">Support Goal</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">Git</span>
+        <div class="stat-label">Version Control</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <div class="stat-label">Commitment</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num">🚀</span>
+        <div class="stat-label">Always Learning</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 02. skills</div>
+  <div class="section-title">What I Know</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🖥️</div>
+      <h3>IT Support</h3>
+      <p>Troubleshooting hardware and software issues, helping users solve technical problems efficiently.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h3>Networking Basics</h3>
+      <p>Understanding of IP addresses, DNS, DHCP, and basic network troubleshooting.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <h3>Git & GitHub</h3>
+      <p>Version control, creating repos, committing code, pushing projects to GitHub.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💼</div>
+      <h3>LinkedIn</h3>
+      <p>Professional profile setup, networking with IT professionals, job searching.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🪟</div>
+      <h3>Windows OS</h3>
+      <p>Windows troubleshooting, settings, file management, and system tools.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📋</div>
+      <h3>Communication</h3>
+      <p>Clear communication with users, documenting issues and solutions effectively.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 03. projects</div>
+  <div class="section-title">My Projects</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">PROJECT_01</div>
+      <h3>Portfolio Website</h3>
+      <p>My personal portfolio website built with HTML & CSS. Showcases my skills, projects, and contact information. Hosted on GitHub Pages.</p>
+      <a href="#" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-num">PROJECT_02</div>
+      <h3>IT Troubleshooting Guide</h3>
+      <p>A beginner-friendly guide documenting common IT issues and step-by-step solutions. Written in Markdown and hosted on GitHub.</p>
+      <span class="coming-soon">COMING SOON</span>
+    </div>
+    <div class="project-card">
+      <div class="project-num">PROJECT_03</div>
+      <h3>Help Desk Ticket Tracker</h3>
+      <p>A simple web app to track IT support tickets. Built to simulate real-world help desk workflows.</p>
+      <span class="coming-soon">COMING SOON</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 04. contact</div>
+  <div class="section-title">Get In Touch</div>
+  <div class="contact-box">
+    <p>I'm currently looking for IT Support opportunities. Whether you have a question, a job opportunity, or just want to connect — feel free to reach out!</p>
+    <div class="contact-links">
+      <a href="https://linkedin.com" target="_blank" class="contact-item">
+        <span class="contact-icon">💼</span>
+        LinkedIn – Aravind Bandameedi
+      </a>
+      <a href="https://github.com" target="_blank" class="contact-item">
+        <span class="contact-icon">🐙</span>
+        GitHub – @aravind-bandameedi
+      </a>
+      <a href="mailto:aravindbandameedi1616@gmail.com" class="contact-item">
+        <span class="contact-icon">📧</span>
+        aravindbandameedi1616@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Aravind Bandameedi &nbsp;|&nbsp; Built with HTML & CSS &nbsp;|&nbsp; Hosted on GitHub Pages</p>
+</footer>
+
+</body>
+</html>
